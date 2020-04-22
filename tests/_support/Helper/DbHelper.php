@@ -37,4 +37,15 @@ class DbHelper extends Module
         $db = $this->getDbDriver();
         $db->deleteQueryByCriteria($table, $params);
     }
+    
+    /**
+     * @param string $table
+     * @throws \Codeception\Exception\ModuleException
+     */
+    public function clearTable(string $table): void
+    {
+        /** @var \Codeception\Lib\Driver\Db $db */
+        $db = $this->getDbDriver();
+        $db->load([sprintf('TRUNCATE TABLE %s', $table)]);
+    }
 }
