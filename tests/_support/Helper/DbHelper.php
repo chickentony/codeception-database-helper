@@ -48,4 +48,19 @@ class DbHelper extends Module
         $db = $this->getDbDriver();
         $db->load([sprintf('TRUNCATE TABLE %s', $table)]);
     }
+    
+    /**
+     * @param array $tables
+     * @throws \Codeception\Exception\ModuleException
+     */
+    public function clearTables(array $tables): void
+    {
+        if (!count($tables)) {
+            throw new \Exception('Specify at least one table');
+        }
+
+        foreach ($tables as $table) {
+            $this->clearTable($table);
+        }
+    }
 }
